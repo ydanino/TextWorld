@@ -1,16 +1,19 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Graph {
 
-    private List<Node> nodes;
+    private HashMap<String, Node> nodes;
+
 
     public Graph(){
-        nodes = new ArrayList<Node>();
+        nodes = new HashMap<String, Node>();
     }
 
     public void addNode(String name) {
-        nodes.add(new Node(name));
+        Node n = new Node(name);
+        nodes.put(name, n);
     }
 
     public void addDirectedEdge(String name1, String name2) {
@@ -29,26 +32,30 @@ public class Graph {
     }
 
     public Node getNode(String name) {
-        for (int i = 0; i < nodes.size(); i++) {
-            if(nodes.get(i).getName().equals(name)){
-                return nodes.get(i);
-            }
-        }
-        return null;
+        return nodes.get(name);
+
     }
 
 
 
     public class Node{
         private String name; // room name
-        private ArrayList<Node> neighbors;
+        private HashMap<String, Node> neighbors;
+        private String descrip;
 
-        private Node(String name) {
+        private Node(String name, String descrip) {
             neighbors = new ArrayList<Node>();
             this.name = name;
         }
+        public String getDescrip(){
+            return descrip;
+        }
 
+        public void setDescrip(String n){
+            descrip =  n;
+        }
         private void addNeighbor(Node n){
+
             neighbors.add(n);
         }
 

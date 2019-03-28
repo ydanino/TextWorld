@@ -6,9 +6,9 @@ public class Main {
         // build up hrapg of connected notes
 
         Graph g = new Graph();
-        g.addNode("hall");
-        g.addNode("closet");
-        g.addNode("dungeon");
+        g.addNode("hall","long hallway" );
+        g.addNode("closet", "massive closet");
+        g.addNode("dungeon", "magnificent dungeon");
 
         g.addDirectedEdge("hall", "dungeon");
         g.addUndirectedEdge("hall", "closet");
@@ -29,12 +29,15 @@ public class Main {
                 current = g.getNode(getRoomName(response));
 
             }else if(response.equals("look")){
-                System.out.println("You are currently in the " + current.getName());
+                System.out.println("You are currently in the " + current.getName() + ";" + current.getDescrip());
                 System.out.println("You can go to the " +  current.getNeighborNames());
+
 
             }else if(response.substring(0,3).equals("add")){
                 String room = getRoomName(response);
-                g.addNode(room);
+                System.out.print("what will be your room description?");
+                String description = in.nextLine();
+                g.addNode(room, description);
                 g.addDirectedEdge(current.getName(), room);
 
             }else if(response.equals("quit")){
@@ -56,7 +59,6 @@ public class Main {
         for (int i = 0; i < response.length(); i++) {
             if (response.substring(i, i+1).equals("<")){
                 int second = findSecond(response, i+1);
-                System.out.println(second);
                 end = response.substring(i+1,second );
                 return end;
             }

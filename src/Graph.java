@@ -11,8 +11,8 @@ public class Graph {
         nodes = new HashMap<String, Node>();
     }
 
-    public void addNode(String name) {
-        Node n = new Node(name);
+    public void addNode(String name, String description) {
+        Node n = new Node(name, description);
         nodes.put(name, n);
     }
 
@@ -41,40 +41,40 @@ public class Graph {
     public class Node{
         private String name; // room name
         private HashMap<String, Node> neighbors;
-        private String descrip;
+        private String description;
 
-        private Node(String name, String descrip) {
-            neighbors = new ArrayList<Node>();
+        private Node(String name, String description) {
+            neighbors = new HashMap<String, Node>();
             this.name = name;
+            this.description = description;
         }
         public String getDescrip(){
-            return descrip;
+            return description;
         }
 
         public void setDescrip(String n){
-            descrip =  n;
+            description =  n;
         }
+
         private void addNeighbor(Node n){
 
-            neighbors.add(n);
+            String nodeNmae =  n.getName();
+            neighbors.put(nodeNmae, n);
+
         }
 
         public String getNeighborNames(){
             String names = "";
-            for (int i = 0; i < neighbors.size(); i++) {
-                names += neighbors.get(i).getName() + " ";
+            for (String n : neighbors.keySet()) {
+                names += neighbors.get(n);
             }
             return names;
         }
 
-        public Node getNeighbor(String name){
-            for (int i = 0; i < neighbors.size(); i++) {
-                if(neighbors.get(i).getName().equals(name)){
-                    return neighbors.get(i);
-                }
-            }
 
-            return null;
+        public Node getNeighbor(String name){
+            return neighbors.get(name);
+
         }
 
 

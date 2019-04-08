@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
+    private static ArrayList<Animals> allAnimals;
     public static void main(String[] args) {
         // build up hrapg of connected notes
 
@@ -16,21 +18,45 @@ public class Main {
 
         Graph.Node current = g.getNode("hall");
 
-
         String response = "";
         Scanner in = new Scanner(System.in);
+        Player p = new Player("yuval", "junior");
+        p.setCurrentRoom(current);
+
+        g.getNode("hall").addItem(new Item("sword"));
+        g.getNode("closet").addItem(new Item("towel"));
+        g.getNode("dungeon").addItem(new Item("dragon food"));
+//      allAnimals.add(new Chicken("bobby the chicken ", "cool chicken", g.getNode("hall")));
+        g.addAnimal(new Chicken("bobby the chicken ", "cool chicken", g.getNode("hall")));
 
         do{
-            System.out.println("You are in the " + current.getName());
+            System.out.println("");
+            System.out.println("You are in the " + p.getCurrentRoom().getName());
             System.out.print("what do you want to do? >");
             response = in.nextLine();
 
             if(response.substring(0,2).equals("go")){
-                current = g.getNode(getRoomName(response));
+                p.setCurrentRoom(g.getNode(getRoomName(response)));
+                g.updateAllAnimals(); // how do i run stuff now
 
-            }else if(response.equals("look")){
-                System.out.println("You are currently in the " + current.getName() + ";" + current.getDescrip());
-                System.out.println("You can go to the " +  current.getNeighborNames());
+
+            }else if(response.substring(0,4).equals("take")){
+                Item m = new Item(getRoomName(response));
+                p.addItem(m);
+                p.getCurrentRoom().removeItem(m);
+
+            }else if(response.substring(0,4).equals("drop")){
+                Item m = new Item(getRoomName(response));
+                p.removeItem(m);
+                p.getCurrentRoom().addItem(m);
+            }
+
+            else if(response.equals("look")){
+                System.out.println("You are currently in the " + p.getCurrentRoom().getName() + ":" + current.getDescrip());
+                System.out.println("You can go to the " +  p.getCurrentRoom().getNeighborNames());
+                System.out.println("The room you're in contains: " + p.getCurrentRoom().getItems());
+                System.out.println("The items you currently have are:" + p.getItems());
+                System.out.println("The animals in this room are: " + g.displayAnimals(p.getCurrentRoom())  );
 
 
             }else if(response.substring(0,3).equals("add")){

@@ -13,7 +13,7 @@ public class Main {
         g.addNode("dungeon", "magnificent dungeon");
 
         g.addDirectedEdge("hall", "dungeon");
-        g.addUndirectedEdge("hall", "closet");
+        g.addDirectedEdge("hall", "closet");
 
 
         Graph.Node current = g.getNode("hall");

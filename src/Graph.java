@@ -75,6 +75,14 @@ public class Graph {
         return animalNames;
     }
 
+    public String displayAnimalsRoom(){
+        String animalANDRoom = "";
+        for (Animals a : allAnimals) {
+            animalANDRoom = a.getName() + " is at the " + a.getCurrentRoom().getName() + " ";
+        }
+        return animalANDRoom;
+    }
+
     public class Node{
         private String name; // room name
         private HashMap<String, Node> neighbors;

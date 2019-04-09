@@ -8,8 +8,6 @@ public class Chicken extends Animals {
 
     public void move(){
 
-
-
         ArrayList<Graph.Node> neighbor = new ArrayList<>(currentRoom.getNeighbors().values());
         if(neighbor.size() < 1)return;
          int randomRoom =(int) (Math.random()* neighbor.size());

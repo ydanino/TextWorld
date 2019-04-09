@@ -11,9 +11,15 @@ public class Main {
         g.addNode("hall","long hallway" );
         g.addNode("closet", "massive closet");
         g.addNode("dungeon", "magnificent dungeon");
+        g.addNode("bathroom", "clean bathroom");
+        g.addNode("shower", "hot ");
+        g.addNode("HELL", "LEAVE NOW!!!");
 
         g.addDirectedEdge("hall", "dungeon");
         g.addDirectedEdge("hall", "closet");
+        g.addDirectedEdge("hall", "bathroom");
+        g.addDirectedEdge("bathroom", "shower");
+        g.addDirectedEdge("dungeon", "HELL");
 
 
         Graph.Node current = g.getNode("hall");
@@ -26,8 +32,11 @@ public class Main {
         g.getNode("hall").addItem(new Item("sword"));
         g.getNode("closet").addItem(new Item("towel"));
         g.getNode("dungeon").addItem(new Item("dragon food"));
-//      allAnimals.add(new Chicken("bobby the chicken ", "cool chicken", g.getNode("hall")));
+
+
         g.addAnimal(new Chicken("bobby the chicken ", "cool chicken", g.getNode("hall")));
+        g.addAnimal(new Wumpus("ted the wumpus", "fat", g.getNode("dungeon"), p));
+        g.addAnimal(new Devil("john the Devil", "scariest man alive", g.getNode("hell"), p));
 
         do{
             System.out.println("");
@@ -49,10 +58,12 @@ public class Main {
                 Item m = new Item(getRoomName(response));
                 p.removeItem(m);
                 p.getCurrentRoom().addItem(m);
+            }else if(response.substring(0,6).equals("search")){
+                System.out.println(g.displayAnimalsRoom());
             }
 
             else if(response.equals("look")){
-                System.out.println("You are currently in the " + p.getCurrentRoom().getName() + ":" + current.getDescrip());
+                System.out.println("You are currently in the " + p.getCurrentRoom().getName() + ":" + p.getCurrentRoom().getDescrip());
                 System.out.println("You can go to the " +  p.getCurrentRoom().getNeighborNames());
                 System.out.println("The room you're in contains: " + p.getCurrentRoom().getItems());
                 System.out.println("The items you currently have are:" + p.getItems());
